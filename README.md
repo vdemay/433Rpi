@@ -3,7 +3,7 @@
 
 Code to play with 433Mhz on RaspberryPi.
 
-visit my blog : http://homautomation.org to get more details on how to use the code
+Visit my blog : http://homautomation.org to get more details on how to use the code and a post about this code: http://www.homautomation.org/2014/04/25/how-to-decode-x10-rf-protocol/
 
 ### Dependencies
 * wiringPi : https://projects.drogon.net/raspberry-pi/wiringpi/
@@ -24,7 +24,7 @@ root@raspberrypi:/home/pi/wiringPi/wiringPi# ./build
  * More to come
 
 ### Tools
-See : 
+See: http://www.homautomation.org/2014/04/25/how-to-decode-x10-rf-protocol/
 * receive.cpp and send.cpp : send and receive command from chacon DI.O devices
 * searchLock.cpp : simple code to try to find a lock on 433 emission
 * RFSniffer.cpp : simple code to try to sniff 433 code
