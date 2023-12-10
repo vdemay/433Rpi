@@ -3,7 +3,7 @@
 
 Code to play with 433Mhz on RaspberryPi.
 
-Visit my blog : http://homautomation.org to get more details on how to use the code and a post about this code: http://www.homautomation.org/2014/04/25/how-to-decode-x10-rf-protocol/
+Visit my blog : http://homautomation.org to get more details on how to use the code and a post about this code: [http://www.homautomation.org/2014/04/25/how-to-decode-x10-rf-protocol/](How%20to%20decode%20X10%20RF%20protocol%20-%20Homautomation.md)
 
 ### Dependencies
 * wiringPi : https://projects.drogon.net/raspberry-pi/wiringpi/
@@ -24,8 +24,8 @@ root@raspberrypi:/home/pi/wiringPi/wiringPi# ./build
  * More to come
 
 ### Tools
-See: http://www.homautomation.org/2014/04/25/how-to-decode-x10-rf-protocol/
-* receive.cpp and send.cpp : send and receive command from chacon DI.O devices
-* searchLock.cpp : simple code to try to find a lock on 433 emission
-* RFSniffer.cpp : simple code to try to sniff 433 code
-* simpleSniff : sniff code after a X10 lock
+See: [http://www.homautomation.org/2014/04/25/how-to-decode-x10-rf-protocol/](How%20to%20decode%20X10%20RF%20protocol%20-%20Homautomation.md)
+* [receive.cpp](receive.cpp) and [send.cpp](send.cpp) : send and receive command from chacon DI.O devices
+* [searchLock.cpp](searchLock.cpp) : simple code to try to find a lock on 433 emission
+* [RFSniffer.cpp](RFSniffer.cpp) : simple code to try to sniff 433 code
+* [simpleSniff.cpp](simpleSniff.cpp) : sniff code after a X10 lock
