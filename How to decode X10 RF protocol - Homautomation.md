@@ -1,3 +1,5 @@
+** Article recovered from Wayback Machine as the site is no longer available **
+
 In this article I will describe the method I used to decode the X10 RF protocol with a Raspberry Pi.
 
 Before starting you have to setup correctly a Raspberry and a RF receiver @ 433Mhtz as I described in a [previous post](https://web.archive.org/web/20180913045549/http://www.homautomation.org/2013/09/21/433mhtz-rf-communication-between-arduino-and-raspberry-pi/).
