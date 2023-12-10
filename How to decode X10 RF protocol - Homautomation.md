@@ -2,9 +2,9 @@
 
 In this article I will describe the method I used to decode the X10 RF protocol with a Raspberry Pi.
 
-Before starting you have to setup correctly a Raspberry and a RF receiver @ 433Mhtz as I described in a [previous post](https://web.archive.org/web/20180913045549/http://www.homautomation.org/2013/09/21/433mhtz-rf-communication-between-arduino-and-raspberry-pi/).
+Before starting you have to setup correctly a Raspberry and a RF receiver @ 433Mhtz as I described in a [previous post](http://www.homautomation.org/2013/09/21/433mhtz-rf-communication-between-arduino-and-raspberry-pi/).
 
-You can find all the code attached to this post on github: [https://github.com/vdemay/433Rpi](https://web.archive.org/web/20180913045549/https://github.com/vdemay/433Rpi)
+You can find all the code attached to this post on github: [https://github.com/vdemay/433Rpi](https://github.com/vdemay/433Rpi)
 
 ## Needed hardware
 
@@ -12,31 +12,31 @@ You can find all the code attached to this post on github: [https://github.com/
 
 ####  A **Raspberry Pi**
 
- **Website**: [http://www.raspberrypi.org/](https://web.archive.org/web/20180913045549/http://www.raspberrypi.org/)
+ **Website**: [http://www.raspberrypi.org/](http://www.raspberrypi.org/)
 
- **Price**: less than 50$ ([Amazon](https://web.archive.org/web/20180913045549/http://www.amazon.com/s/?_encoding=UTF8&camp=1789&creative=390957&field-keywords=raspberry%20pi&linkCode=ur2&rh=n%3A172282%2Ck%3Araspberry%20pi&tag=homauomatio03-20&url=search-alias%3Delectronics)![](How%20to%20decode%20X10%20RF%20protocol%20-%20Homautomation/ir.gif))
+ **Price**: less than 50$ ([Amazon](http://www.amazon.com/s/?_encoding=UTF8&camp=1789&creative=390957&field-keywords=raspberry%20pi&linkCode=ur2&rh=n%3A172282%2Ck%3Araspberry%20pi&tag=homauomatio03-20&url=search-alias%3Delectronics)![](How%20to%20decode%20X10%20RF%20protocol%20-%20Homautomation/ir.gif))
 
 Mine is a B Model
 
-[![rf433k](How%20to%20decode%20X10%20RF%20protocol%20-%20Homautomation/rf433k-300x225.jpg)](https://web.archive.org/web/20180913045549/http://www.homautomation.org/wp-content/uploads/2013/09/rf433k.jpg)
+[![rf433k](How%20to%20decode%20X10%20RF%20protocol%20-%20Homautomation/rf433k-300x225.jpg)]
 
 ####  433Mhz RF link kit
 
- **Price**: less than 5$ ([Amazon](https://web.archive.org/web/20180913045549/http://www.amazon.com/s/?_encoding=UTF8&camp=1789&creative=390957&field-keywords=raspberry%20pi&linkCode=ur2&rh=n%3A172282%2Ck%3Araspberry%20pi&tag=homauomatio03-20&url=search-alias%3Delectronics)![](How%20to%20decode%20X10%20RF%20protocol%20-%20Homautomation/ir.gif))
+ **Price**: less than 5$ ([Amazon](http://www.amazon.com/s/?_encoding=UTF8&camp=1789&creative=390957&field-keywords=raspberry%20pi&linkCode=ur2&rh=n%3A172282%2Ck%3Araspberry%20pi&tag=homauomatio03-20&url=search-alias%3Delectronics)![](How%20to%20decode%20X10%20RF%20protocol%20-%20Homautomation/ir.gif))
 
 ## Build the hardware to snif RF
 
 Now You get the right hardware you have to make a simple breakout:
 
-[![RPi](How%20to%20decode%20X10%20RF%20protocol%20-%20Homautomation/RPi.jpg)](https://web.archive.org/web/20180913045549/http://www.homautomation.org/wp-content/uploads/2013/09/RPi.jpg)
+[![RPi](How%20to%20decode%20X10%20RF%20protocol%20-%20Homautomation/RPi.jpg)]
 
 The Antenna should be a 17cm long simple wire. Here on my exemple there are both emitter and receiver connected to the Raspberry. Obviously only the receiver is needed
 
-[![photo](How%20to%20decode%20X10%20RF%20protocol%20-%20Homautomation/photo-1024x768.jpg)](https://web.archive.org/web/20180913045549/http://www.homautomation.org/wp-content/uploads/2014/04/photo.jpg)
+[![photo](How%20to%20decode%20X10%20RF%20protocol%20-%20Homautomation/photo-1024x768.jpg)]
 
 ## Install the software
 
-Now it’s to prepare the software. My Raspberry is running a [Raspbian](https://web.archive.org/web/20180913045549/http://www.raspbian.org/). Once ssh’ed on it, install [wiringPi (a lib to help to manage GPIO)](https://web.archive.org/web/20180913045549/https://projects.drogon.net/raspberry-pi/wiringpi/)
+Now it’s to prepare the software. My Raspberry is running a [Raspbian](http://www.raspbian.org/). Once ssh’ed on it, install [wiringPi (a lib to help to manage GPIO)](https://projects.drogon.net/raspberry-pi/wiringpi/)
 ```bash
 pi@raspberrypi ~ $ git clone git://git.drogon.net/wiringPi
 ...
@@ -78,13 +78,13 @@ Ok, we are ready to go
 
 First of all you have to know that signal received by the receiver is based on logical state changes. Here is a typical exemple  of signal received via RF:
 
-[![signal](How%20to%20decode%20X10%20RF%20protocol%20-%20Homautomation/signal.png)](https://web.archive.org/web/20180913045549/http://www.homautomation.org/wp-content/uploads/2014/04/signal.png)
+[![signal](How%20to%20decode%20X10%20RF%20protocol%20-%20Homautomation/signal.png)]
 
 So the idea is to mesure time between each signal state changes (0 to 1 or 1 to 0) in order try to decode the binary message. It’s also necessary to start to measure signal change only after the signal started and not during the noise period.
 
 Most of protocol are based on a lock to indicate the start of the signal. A Lock is a long period (ms) when the emitter send a 0 or a 1 (or a sequence of long 0 and 1) to indicate the signal will start:
 
-[![lock](How%20to%20decode%20X10%20RF%20protocol%20-%20Homautomation/lock.png)](https://web.archive.org/web/20180913045549/http://www.homautomation.org/wp-content/uploads/2014/04/lock.png)
+[![lock](How%20to%20decode%20X10%20RF%20protocol%20-%20Homautomation/lock.png)]
 
 So first of all we’ll try to handle a lock programmatically with a simple C++ code: The goal of the soft is to attach interrupt each time the signal is falling or rising in order to mesure the time needed for a signal change. If the time to change is long, we can expect a lock is received.
 
@@ -95,7 +95,7 @@ The aim here is to decode signal send by this device :
   
 [X10 3 Unit Slimline Wireless Wall Switch + Dimming![](How%20to%20decode%20X10%20RF%20protocol%20-%20Homautomation/ir.1.gif)  
 ![41WZKMXA2WL](How%20to%20decode%20X10%20RF%20protocol%20-%20Homautomation/41WZKMXA2WL-300x300.jpg)  
-$15 on Amazon](https://web.archive.org/web/20180913045549/http://www.amazon.com/gp/product/B00022OCDW/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B00022OCDW&linkCode=as2&tag=homauomatio03-20)
+$15 on Amazon](http://www.amazon.com/gp/product/B00022OCDW/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B00022OCDW&linkCode=as2&tag=homauomatio03-20)
 
  
 
@@ -249,7 +249,7 @@ The program detect noise or signal from elsewhere, but when I press a button lot
 
 I stopped to consider the lock at this point because other values are much smaller. **Reminder** each value is a duration of a 0 state or of a 1 state. So If we imagine the first state is 0 we get the following lock:
 
-[![lockVal](How%20to%20decode%20X10%20RF%20protocol%20-%20Homautomation/lockVal.jpg)](https://web.archive.org/web/20180913045549/http://www.homautomation.org/wp-content/uploads/2014/04/lockVal.jpg) so now we will try to understand the rest of the data taking as exemple the following
+[![lockVal](How%20to%20decode%20X10%20RF%20protocol%20-%20Homautomation/lockVal.jpg)] so now we will try to understand the rest of the data taking as exemple the following
 
 ```
 Lock started
@@ -276,12 +276,14 @@ As each value is duration of a 0 or a 1, the rest of the data should be consider
 456...
 ```
 
-It seems we get a pattern : sometimes 450 and 550 and sometimes 4500 and 1500. Wahoo we get something : [![lockVal+value](How%20to%20decode%20X10%20RF%20protocol%20-%20Homautomation/lockVal+value.jpg)](https://web.archive.org/web/20180913045549/http://www.homautomation.org/wp-content/uploads/2014/04/lockVal+value.jpg)   Binary is usually encoded over RF on the following way  
+It seems we get a pattern : sometimes 450 and 550 and sometimes 4500 and 1500. Wahoo we get something : [![lockVal+value](How%20to%20decode%20X10%20RF%20protocol%20-%20Homautomation/lockVal+value.jpg)]
+Binary is usually encoded over RF on the following way  
 
 -   0 encoded with hight and low level with the same duration
 -   1 encoded with hight level longer than low level or hight level shorter than the low one.
 
- So here it seems we get 0110000010011… [![lockVal+value+decode](How%20to%20decode%20X10%20RF%20protocol%20-%20Homautomation/lockVal+value+decode.jpg)](https://web.archive.org/web/20180913045549/http://www.homautomation.org/wp-content/uploads/2014/04/lockVal+value+decode.jpg)   At this point we are not sure to get all needed changes to decode the signal. So I will update the soft to take into account our new knowledge:  
+ So here it seems we get 0110000010011… [![lockVal+value+decode](How%20to%20decode%20X10%20RF%20protocol%20-%20Homautomation/lockVal+value+decode.jpg)]
+ At this point we are not sure to get all needed changes to decode the signal. So I will update the soft to take into account our new knowledge:  
 
 -   Handle the 3 changes making the lock (with a big tolerance)
 -   Dump more changes to try to find out the right needed number (70)
@@ -637,9 +639,10 @@ So we get bytes. It seems that the second byte is the complment from the first o
 
 Decoding the binary signal is more tricky. So I asked my frind google to help me with this task. Here is the link needed to continue:
 
-[http://www.printcapture.com/files/X10\_RF\_Receiver.pdf](https://web.archive.org/web/20180913045549/http://www.printcapture.com/files/X10_RF_Receiver.pdf)
+[http://www.printcapture.com/files/X10\_RF\_Receiver.pdf](http://www.printcapture.com/files/X10_RF_Receiver.pdf)
 
-First all, it seems our reversed engineering is ok: [![Capture d’écran 2014-04-21 à 11.30.31](How%20to%20decode%20X10%20RF%20protocol%20-%20Homautomation/Capture-d%E2%80%99%C3%A9cran-2014-04-21-%C3%A0-11.30.31.png)](https://web.archive.org/web/20180913045549/http://www.homautomation.org/wp-content/uploads/2014/04/Capture-d’écran-2014-04-21-à-11.30.31.png) And the interesting section at this point is the table of byte values and meaning: [![Capture d’écran 2014-04-21 à 11.32.54](How%20to%20decode%20X10%20RF%20protocol%20-%20Homautomation/Capture-d%E2%80%99%C3%A9cran-2014-04-21-%C3%A0-11.32.54.png)](https://web.archive.org/web/20180913045549/http://www.homautomation.org/wp-content/uploads/2014/04/Capture-d’écran-2014-04-21-à-11.32.54.png)   So if the next phase, we’ll try to transform our binary signal to a real value: I firstly did it only for Axx command. I’ll try to continue to maintain the code here: [https://github.com/vdemay/433Rpi](https://web.archive.org/web/20180913045549/https://github.com/vdemay/433Rpi) All you need to decode X10 Protocol is here: [https://github.com/vdemay/433Rpi/blob/master/SignalReciever](https://web.archive.org/web/20180913045549/http://www.homautomation.org/2014/04/25/how-to-decode-x10-rf-protocol//%20https://github.com/vdemay/433Rpi/blob/master/SignalReciever)
+First all, it seems our reversed engineering is ok: [![Capture d’écran 2014-04-21 à 11.30.31](How%20to%20decode%20X10%20RF%20protocol%20-%20Homautomation/Capture-d%E2%80%99%C3%A9cran-2014-04-21-%C3%A0-11.30.31.png)]) And the interesting section at this point is the table of byte values and meaning: [![Capture d’écran 2014-04-21 à 11.32.54](How%20to%20decode%20X10%20RF%20protocol%20-%20Homautomation/Capture-d%E2%80%99%C3%A9cran-2014-04-21-%C3%A0-11.32.54.png)]
+So if the next phase, we’ll try to transform our binary signal to a real value: I firstly did it only for Axx command. I’ll try to continue to maintain the code here: [https://github.com/vdemay/433Rpi](https://github.com/vdemay/433Rpi) All you need to decode X10 Protocol is here: [https://github.com/vdemay/433Rpi/blob/master/SignalReciever](https://github.com/vdemay/433Rpi/blob/master/SignalReciever)
 
 ```
 SignalReciever/X10Protocol.cpp
